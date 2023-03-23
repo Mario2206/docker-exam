@@ -1,13 +1,15 @@
 import axios from "axios";
 
+const BASE_URL = "http://localhost:4001";
+
 export const getTodos = async () => {
-  //TO_MODIFY
+  return axios.get(`${BASE_URL}/todos`)
 };
 
 export const createTodo = async (formData) => {
-  //TO_MODIFY
+  return axios.post(`${BASE_URL}/todos`, formData)
 };
 
 export const deleteTodo = async (todoId) => {
-  //TO_MODIFY
+  return axios.delete(`${BASE_URL}/todos/${todoId}`)
 };

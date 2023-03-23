@@ -20,8 +20,15 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    environment:
+      DB_HOST: "${DB_HOST}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_DATABASE: "${DB_DATABASE}"
+      DB_USER: "${DB_USER}"
+      DB_PORT: "${DB_PORT}"
   
   db:
+    hostname: "${DB_HOST}"
     image: mysql:8.0
     ports:
       - "3306:3306"
@@ -31,7 +38,5 @@ services:
       timeout: 3s
       retries: 30
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: docker-exercise
-    volumes:
-      - ./db-data:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"

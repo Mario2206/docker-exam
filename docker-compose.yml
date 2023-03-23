@@ -3,8 +3,26 @@ version: '3.7'
 services:
   backend:
     build: backend/
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - 4001:4001
     volumes:
       - ./backend:/app
       - /app/node_modules
+  
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3306"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: docker-exercise
+    volumes:
+      - ./db-data:/var/lib/mysql
